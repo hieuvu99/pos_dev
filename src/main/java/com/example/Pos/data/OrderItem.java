@@ -1,8 +1,10 @@
 package com.example.Pos.data;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
@@ -10,16 +12,27 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class OrderItem {
-	@MapsId("orderId")
-	@ManyToOne
+	@EmbeddedId
+	private OrderItemId id;
+
+	@MapsId("OID")
+	@JoinColumn(name = "OID")
 	private Order order;
-	
-	@MapsId("productID")
-	@ManyToOne
+
+	@MapsId("PID")
+	 @JoinColumn(name = "PID")
 	private Product product;
-	
+
 	@Column(name = "QUANTITY")
 	private int quantity;
+
+	public OrderItemId getId() {
+		return id;
+	}
+
+	public void setId(OrderItemId id) {
+		this.id = id;
+	}
 
 	public Order getOrder() {
 		return order;
@@ -44,7 +57,5 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
-	
+
 }

@@ -18,32 +18,32 @@ import com.example.Pos.data.Product;
 @RequestMapping("/api")
 public class ProductWebServiceController {
 	private final ProductService productService;
-	
+
 	public ProductWebServiceController(ProductService productService) {
 		this.productService = productService;
 	}
-	
+
 	@RequestMapping(path = "/products", method = RequestMethod.GET)
 	public List<Product> getProduct(Model model) {
 		return this.productService.getAllProduct();
 	}
-	
+
 	@RequestMapping(path = "/products", method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product addProduct(@RequestBody Product product) {
 		return this.productService.addProduct(product);
 	}
-	
+
 	@RequestMapping(path = "/products", method = RequestMethod.PUT)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product updateProduct(@RequestBody Product product) {
 		return this.productService.updateProduct(product);
 	}
-	
+
 	@RequestMapping(path = "/products/deletes-product", method = RequestMethod.PATCH)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity deleteProducts(@RequestBody Long[] productIDArray) {
-		 this.productService.deleteProducts(productIDArray);
-		 return ResponseEntity.ok().build(); 
+		this.productService.deleteProducts(productIDArray);
+		return ResponseEntity.ok().build();
 	}
 }
