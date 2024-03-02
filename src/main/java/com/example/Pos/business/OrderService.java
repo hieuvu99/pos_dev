@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.example.Pos.data.Order;
 import com.example.Pos.data.OrderItem;
 import com.example.Pos.data.OrderItemRepository;
+//import com.example.Pos.data.OrderItem;
+//import com.example.Pos.data.OrderItemRepository;
 import com.example.Pos.data.OrderRepository;
 import com.example.Pos.data.Product;
 
@@ -48,10 +50,7 @@ public class OrderService {
 	}
 	
 	public void addOrderItem(OrderItem[] orderItems) {
-		Stream<OrderItem> orderItemStream = Arrays.stream(orderItems);
-		orderItemStream.forEach(orderItem -> {
-			orderItemRepository.save(orderItem);			
-		});
+		System.out.println();
 	}
 	
 }

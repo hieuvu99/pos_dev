@@ -1,17 +1,23 @@
 package com.example.Pos.data;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product {
 	 @Id
-	 @Column(name="PID")
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @Column(name="PID", columnDefinition = "bigint")
+	 @GeneratedValue(strategy = GenerationType.AUTO)
 	 private long productID;
 	 @Column(name="PRODUCTNAME")
 	 private String productName;
@@ -19,7 +25,11 @@ public class Product {
 	 private String productType;
 	 @Column(name="PRICE")
 	 private Double price;
-	public long getProductID() {
+	 
+	 @OneToMany(mappedBy = "product")
+	 Set<OrderItem> orderItems;
+	
+	 public long getProductID() {
 		return productID;
 	}
 	public void setProductID(long productID) {

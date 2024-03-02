@@ -1,12 +1,17 @@
 package com.example.Pos.data;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +31,9 @@ public class Order {
 	private String paymentStatus;
 	@Column(name = "PAYMENT_TYPE")
 	private String paymentType;
+	
+	@OneToMany(mappedBy = "order")
+    Set<OrderItem> orderItems;
 	
 	public long getOrderID() {
 		return orderID;
