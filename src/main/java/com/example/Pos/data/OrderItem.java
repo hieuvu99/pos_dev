@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "orderitems")
 public class OrderItem {
 	@EmbeddedId
-	ProductItemKey OderItemID;
+	ProductItemKey OrderItemID;
 	
 	@ManyToOne
 	@JoinColumn(name = "OID", insertable = false, updatable = false)
@@ -27,12 +27,12 @@ public class OrderItem {
 	@Column(name = "Quantity")
 	int quantity;
 
-	public ProductItemKey getOderItemID() {
-		return OderItemID;
+	public ProductItemKey getOrderItemID() {
+		return OrderItemID;
 	}
 
-	public void setOderItemID(ProductItemKey oderItemID) {
-		OderItemID = oderItemID;
+	public void setOrderItemID(ProductItemKey orderItemID) {
+		OrderItemID = orderItemID;
 	}
 
 	public Order getOrder() {
@@ -57,5 +57,11 @@ public class OrderItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [OrderItemID=" + OrderItemID + ", order=" + order.toString() + ", product=" + product.toString() + ", quantity="
+				+ quantity + "]";
 	}
 }

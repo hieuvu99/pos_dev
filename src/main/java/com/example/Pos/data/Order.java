@@ -8,9 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -27,8 +24,6 @@ public class Order {
 	private double cost;
 	@Column(name = "ORDERNO")
 	private int orderNo;
-	@Column(name = "PAYMENT_STATUS")
-	private String paymentStatus;
 	@Column(name = "PAYMENT_TYPE")
 	private String paymentType;
 	
@@ -59,12 +54,6 @@ public class Order {
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
 	}
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
 	public String getPaymentType() {
 		return paymentType;
 	}
@@ -74,7 +63,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [orderID=" + orderID + ", time=" + time + ", cost=" + cost + ", orderNo=" + orderNo
-				+ ", paymentStatus=" + paymentStatus + ", paymentType=" + paymentType + "]";
+				 + ", paymentType=" + paymentType + "]";
 	}
 
 }
