@@ -19,7 +19,7 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        List<Product> reservations = this.productService.getAllProduct();
+        List<Product> reservations = this.productService.getAllProduct(null);
         reservations.forEach(System.out::println);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,25 +24,31 @@ public class ProductWebServiceController {
 	public ProductWebServiceController(ProductService productService) {
 		this.productService = productService;
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/products", method = RequestMethod.GET)
-	public List<Product> getProduct(Model model) {
-		return this.productService.getAllProduct();
+	public List<Product> getProduct(@RequestParam String category, Model model) {
+		category = !category.isEmpty() ? category : null;
+		return this.productService.getAllProduct(category);
 	}
+
 	@CrossOrigin(origins = "*") // Allow requests from any origin
+	// Need to update above section
+
 	@RequestMapping(path = "/products", method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product addProduct(@RequestBody Product product) {
 		return this.productService.addProduct(product);
 	}
-	
+
 	@RequestMapping(path = "/products", method = RequestMethod.PUT)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product updateProduct(@RequestBody Product product) {
 		return this.productService.updateProduct(product);
 	}
 
+	
+	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/products/deletes-product", method = RequestMethod.PATCH)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity deleteProducts(@RequestBody Long[] productIDArray) {
