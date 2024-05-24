@@ -32,22 +32,20 @@ public class ProductWebServiceController {
 		return this.productService.getAllProduct(category);
 	}
 
-	@CrossOrigin(origins = "*") // Allow requests from any origin
-	// Need to update above section
-
+	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/products", method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product addProduct(@RequestBody Product product) {
 		return this.productService.addProduct(product);
 	}
 
+	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/products", method = RequestMethod.PUT)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Product updateProduct(@RequestBody Product product) {
 		return this.productService.updateProduct(product);
 	}
 
-	
 	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/products/deletes-product", method = RequestMethod.PATCH)
 	@ResponseStatus(code = HttpStatus.CREATED)

@@ -17,6 +17,7 @@ import com.example.Pos.data.OrderItemRepository;
 import com.example.Pos.data.OrderRepository;
 import com.example.Pos.data.Product;
 import com.example.Pos.data.ProductRepository;
+import com.example.Pos.exception.OrderNotFoundException;
 
 @Service
 public class OrderService {
@@ -33,6 +34,18 @@ public class OrderService {
 
 	public List<Order> getAllOrder() {
 		return this.orderRepository.findAll();
+	}
+
+	public Order getOrderInfo(long OrderID) {
+		Optional<Order> orderOptional = this.orderRepository.findById(OrderID);
+		if (!(orderOptional.get() == null))
+			return orderOptional.get();
+		else
+			throw new OrderNotFoundException("Order with ID " + OrderID + " not found.");
+	}
+	
+	public List<OrderItem> getOrderItem(long OrderID){
+		return this.orderItemRepository.findByOrderOrderID(OrderID);
 	}
 
 	public Integer getOrderNo(Order order) {
@@ -67,16 +80,20 @@ public class OrderService {
 		return this.orderRepository.save(order);
 	}
 
-	public Order getOrder(Long OrderNumber) {
-		Optional<Order> orderOptional = this.orderRepository.findById(OrderNumber);
-		if (orderOptional.isEmpty())
-			return orderOptional.get();
-		else
-			throw new RuntimeException("Can not find the order");
-	}
+//	public Order getOrder(Long OrderNumber) {
+//		Optional<Order> orderOptional = this.orderRepository.findById(OrderNumber);
+//		List<OrderItem> result = this.orderItemRepository.findByOrderOrderID(OrderNumber);
+//		System.out.print("CHeck This CHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck This");
+//		if(!result.isEmpty())
+//			System.out.println(result.get(0));
+//		if (orderOptional.isEmpty())
+//			return orderOptional.get();
+//		else
+//			throw new RuntimeException("Can not find the order");
+//	}
 
 	public void addOrderItem(OrderItem[] orderItems, Order order) {
-		System.out.println(order.toString());
+//		System.out.println(order.toString());
 		try {
 			Stream<OrderItem> orderItemsStm = Arrays.stream(orderItems);
 			orderItemsStm.forEach(orderItem -> {
