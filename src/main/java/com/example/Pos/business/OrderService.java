@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.Pos.data.Order;
@@ -32,8 +33,8 @@ public class OrderService {
 		this.productRepository = productRepository;
 	}
 
-	public List<Order> getAllOrder() {
-		return this.orderRepository.findAll();
+	public List<Order> getAllOrder(int pageNumber) {
+		return this.orderRepository.findAllByOrderByTimeDesc( PageRequest.of(pageNumber, 10));
 	}
 
 	public Order getOrderInfo(long OrderID) {
@@ -80,17 +81,6 @@ public class OrderService {
 		return this.orderRepository.save(order);
 	}
 
-//	public Order getOrder(Long OrderNumber) {
-//		Optional<Order> orderOptional = this.orderRepository.findById(OrderNumber);
-//		List<OrderItem> result = this.orderItemRepository.findByOrderOrderID(OrderNumber);
-//		System.out.print("CHeck This CHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck ThisCHeck This");
-//		if(!result.isEmpty())
-//			System.out.println(result.get(0));
-//		if (orderOptional.isEmpty())
-//			return orderOptional.get();
-//		else
-//			throw new RuntimeException("Can not find the order");
-//	}
 
 	public void addOrderItem(OrderItem[] orderItems, Order order) {
 //		System.out.println(order.toString());

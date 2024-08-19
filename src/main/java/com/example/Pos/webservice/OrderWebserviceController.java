@@ -35,30 +35,27 @@ public class OrderWebserviceController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createOrder(@RequestBody Map<String, Object> requestBody) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		OrderItem[] orderItems = objectMapper.convertValue(
-	            requestBody.get("orderItems"),
-	            OrderItem[].class
-	    );
-		Order order = objectMapper.convertValue( 
-				requestBody.get("order"),
-	            Order.class);
-		
+		OrderItem[] orderItems = objectMapper.convertValue(requestBody.get("orderItems"), OrderItem[].class);
+		Order order = objectMapper.convertValue(requestBody.get("order"), Order.class);
+
 		order = this.orderService.addOrder(order);
 		this.orderService.addOrderItem(orderItems, order);
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/orders", method = RequestMethod.GET)
-	public List<Order> getOrders(Model model) {
-		return this.orderService.getAllOrder();
+	public List<Order> getOrders(@RequestParam(value = "pageNo", defaultValue = "0") String pageNo, Model model) {
+		int page;
+		page = Integer.parseInt(pageNo);
+		return this.orderService.getAllOrder(page);
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:3000") // Replace with your Next.js development server URL
 	@RequestMapping(path = "/order", method = RequestMethod.GET)
 	public List<OrderItem> getOrder(@RequestParam String orderID, Model model) {
 //		Order order = this.orderService.getOrderInfo(Long.parseLong(orderID));
 //		if (order!=null)
-			return this.orderService.getOrderItem(Long.parseLong(orderID));
+		return this.orderService.getOrderItem(Long.parseLong(orderID));
 //		return order;
 	}
 }

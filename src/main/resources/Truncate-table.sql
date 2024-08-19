@@ -6,4 +6,4 @@ SET foreign_key_checks = 0;
 TRUNCATE TABLE orders;
 truncate table orderitems;
 -- Step 3: Enable foreign key checks
-SET foreign_key_checks = 1;
+SET foreign_key_checks = 1;
